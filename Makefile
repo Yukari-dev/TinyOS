@@ -10,7 +10,9 @@ QEMU = qemu-system-x86_64
 # Flags
 NASMFLAGS = -f bin
 KERNEL_NASMFLAGS = -f elf32
-CFLAGS = -ffreestanding -m32 -fno-pic -fno-pie -c
+
+# ADDED: -Ikernel allows you to #include "vga/vga.h" without relative paths
+CFLAGS = -ffreestanding -m32 -fno-pic -fno-pie -fno-stack-protector -c -Ikernel
 LDFLAGS = -m elf_i386 -T boot/linker.ld --oformat binary
 
 # Directories
@@ -21,40 +23,46 @@ BUILD_DIR = build
 # Files
 BOOT_SRC = $(BOOT_DIR)/boot.asm
 BOOT_BIN = $(BUILD_DIR)/boot.bin
+DISK_IMG = myos.img
 
-KERNEL_C = $(KERNEL_DIR)/kernel.c
+# --- AUTOMATIC FILE DETECTION ---
+# Find all .c files in kernel/ and all its subdirectories (vga, stdio, etc.)
+C_SOURCES = $(shell find $(KERNEL_DIR) -name "*.c")
+# Convert those .c file paths to .o file paths in the build directory
+# e.g., kernel/vga/vga.c becomes build/vga.o
+C_OBJECTS = $(patsubst $(KERNEL_DIR)/%.c, $(BUILD_DIR)/%.o, $(C_SOURCES))
+
+# Entry point (usually needs to be linked first)
 KERNEL_ENTRY_ASM = $(KERNEL_DIR)/kernelentry.asm
-
-KERNEL_OBJ = $(BUILD_DIR)/kernel.o
 KERNEL_ENTRY_OBJ = $(BUILD_DIR)/kernelentry.o
 KERNEL_BIN = $(BUILD_DIR)/kernel.bin
-
-DISK_IMG = myos.img
 
 # Default target
 all: $(DISK_IMG)
 
-# Create build directory
+# Create build directory and subfolders to mirror the kernel structure
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)/vga
+	mkdir -p $(BUILD_DIR)/stdio
 
 # Build bootloader
 $(BOOT_BIN): $(BOOT_SRC) | $(BUILD_DIR)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-# Compile kernel C code
-$(KERNEL_OBJ): $(KERNEL_C) | $(BUILD_DIR)
+# AUTOMATIC RULE: Compile any .c file into a .o file
+$(BUILD_DIR)/%.o: $(KERNEL_DIR)/%.c | $(BUILD_DIR)
 	$(GCC) $(CFLAGS) $< -o $@
 
 # Assemble kernel entry point
 $(KERNEL_ENTRY_OBJ): $(KERNEL_ENTRY_ASM) | $(BUILD_DIR)
 	$(NASM) $(KERNEL_NASMFLAGS) $< -o $@
 
-# Link kernel
-$(KERNEL_BIN): $(KERNEL_ENTRY_OBJ) $(KERNEL_OBJ) boot/linker.ld
-	$(LD) $(LDFLAGS) $(KERNEL_ENTRY_OBJ) $(KERNEL_OBJ) -o $@
+# Link kernel (Entry object first, then all discovered C objects)
+$(KERNEL_BIN): $(KERNEL_ENTRY_OBJ) $(C_OBJECTS) boot/linker.ld
+	$(LD) $(LDFLAGS) $(KERNEL_ENTRY_OBJ) $(C_OBJECTS) -o $@
 
-# Create floppy disk image
+# Create disk image
 $(DISK_IMG): $(BOOT_BIN) $(KERNEL_BIN)
 	$(DD) if=/dev/zero of=$@ bs=512 count=2880
 	$(DD) if=$(BOOT_BIN) of=$@ bs=512 count=1 conv=notrunc
@@ -64,13 +72,7 @@ $(DISK_IMG): $(BOOT_BIN) $(KERNEL_BIN)
 run: $(DISK_IMG)
 	$(QEMU) -drive format=raw,file=$< -display sdl
 
-# Debug with QEMU monitor
-debug: $(DISK_IMG)
-	$(QEMU) -fda $< -monitor stdio
-
-# Clean build files
 clean:
 	rm -rf $(BUILD_DIR) $(DISK_IMG)
 
-# Phony targets
-.PHONY: all run debug clean
+.PHONY: all run clean

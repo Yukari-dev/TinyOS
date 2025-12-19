@@ -10,16 +10,9 @@ start:
     mov ss, ax  ; set ss to 0
     mov sp, 0x7C00 ; set stack pointer below the bootloader
     
-    ; clear the screen
-    call clear_screen
-    
-    ; print boot message
-    mov si, wlcm_msg
-    call print_string
-    
     ;load kernel from disk (assuming the kernel is at the next sector)
     mov ah, 0x02 ; BIOS read sector function
-    mov al, 1    ; number of sectors to read
+    mov al, 50    ; number of sectors to read
     mov ch, 0    ; cylinder 0
     mov cl, 2    ; sector 2 (bootloader is at sector 1)
     mov dh, 0    ; head 0
@@ -35,12 +28,6 @@ start:
 
 
     jmp 0x08:protected_mode
-
-clear_screen:
-    mov ah, 0x0
-    mov al, 0x03
-    int 0x10
-    ret
 
 print_string:
     lodsb

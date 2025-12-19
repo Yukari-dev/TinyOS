@@ -1,39 +1,31 @@
-// VGA text mode base address
-#define VGA_WIDTH 80
-#define VGA_HEIGHT 25
-unsigned short* videomem = (unsigned short*)0xB8000;
+#include "vga/vga.h"
+#include "stdio/stdio.h"
 
-// Clear screen with spaces (black background, light grey text)
-void clear_screen() {
-    for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
-        videomem[i] = 0x07;  // ' ' (space) with attribute 0x07
-    }
-}
 
-// Print a string starting at current position (simple version)
-void print(const char* str) {
-    static int pos = 0;  // keeps track of where we are on screen
+enum vga_color {
+    BLACK = 0,
+    BLUE = 1,
+    GREEN = 2,
+    CYAN = 3,
+    RED = 4,
+    MAGENTA = 5,
+    BROWN = 6,
+    LIGHT_GREY = 7,
+    DARK_GREY = 8,
+    LIGHT_BLUE = 9,
+    LIGHT_GREEN = 10,
+    LIGHT_CYAN = 11,
+    LIGHT_RED = 12,
+    LIGHT_MAGENTA = 13,
+    LIGHT_BROWN = 14,
+    WHITE = 15,
+};
 
-    while (*str) {
-        if (*str == '\n') {
-            // Move to next line
-            pos += VGA_WIDTH;
-            pos -= pos % VGA_WIDTH;  // align to start of line
-        } else {
-            videomem[pos] = (*str) | (0x07 << 8);  // char + white on black
-            pos++;
-        }
-        str++;
-    }
-
-    // Simple wrap-around (optional)
-    if (pos >= VGA_WIDTH * VGA_HEIGHT) {
-        pos = 0;
-    }
-}
 
 void main(){
-    clear_screen();
-    print("Welcome to T-OS");
+    clear();
+    printf(0x0F, "[>]Welcome to %c!\n", 'A');
+
     while(1);
 }
+
