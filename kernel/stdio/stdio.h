@@ -6,6 +6,15 @@ typedef struct {
     unsigned char color_val;
 } ColorMap;
 
+enum TextType{
+    NORMAL,
+    PROGRESS,
+    DONE,
+    INFO,
+    WARNING,
+    ERROR
+};
+
 void printf(const char color, const char* format, ...);
 void printc(char c, const char color);
 

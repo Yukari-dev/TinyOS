@@ -7,6 +7,17 @@ unsigned short height = 25;
 unsigned short cursor_y = 0;
 unsigned short cursor_x = 0;
 
+
+void disable_blinking() {
+    inb(0x3DA); 
+    outb(0x3C0, 0x30); 
+    
+    unsigned char reg = inb(0x3C1);
+    reg &= ~0x08;     
+
+    outb(0x3C0, reg);
+}
+
 void update_cursor(){
     unsigned short pos = cursor_y * width + cursor_x;
 

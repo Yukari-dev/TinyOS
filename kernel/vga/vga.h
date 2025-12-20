@@ -12,6 +12,10 @@ void outb(unsigned short port, unsigned char data);
 
 unsigned char inb(unsigned short port);
 
+void init_graphics_mode();
+
+void disable_blinking();
+
 void update_cursor();
 
 void enable_cursor(unsigned char cursor_start, unsigned char cursor_end);

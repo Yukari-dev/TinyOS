@@ -3,8 +3,22 @@
 #include "../vga/vga.h"
 
 ColorMap colors[] = {
-    {'w', 0x0F}, {'r', 0x04}, {'g', 0x02}, {'b', 0x01},
-    {'y', 0x0E}, {'p', 0x0D}, {'c', 0x03}, {'0', 0x07} // 0 for default gray
+    {'k', 0x00}, // Black
+    {'b', 0x01}, // Blue (Dark)
+    {'g', 0x02}, // Green (Dark)
+    {'c', 0x03}, // Cyan (Dark)
+    {'r', 0x04}, // Red (Dark)
+    {'m', 0x05}, // Magenta (Dark)
+    {'o', 0x06}, // Brown (Closest to Orange)
+    {'7', 0x07}, // Light Gray (Default)
+    {'8', 0x08}, // Dark Gray
+    {'B', 0x09}, // Light Blue
+    {'G', 0x0A}, // Light Green
+    {'C', 0x0B}, // Light Cyan
+    {'R', 0x0C}, // Light Red
+    {'P', 0x0D}, // Light Magenta / Pink
+    {'Y', 0x0E}, // Yellow
+    {'W', 0x0F}  // White (Bright)
 };
 
 void clear(){
@@ -104,7 +118,7 @@ void printc(char c, const char color){
 
 
 unsigned char find_color(char c){
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 16; i++){
         if(colors[i].code == c) return colors[i].color_val;
     }
     return 255;
