@@ -24,6 +24,12 @@ unsigned char find_color(char c);
 
 short len(char* c);
 
+void strcpy(const char* source, char* destination);
+
+char* strtok(char* input_string, const char* delimiter);
+
+char strcmp(unsigned char *str1, unsigned char *str2);
+
 void clear();
 
 void scroll();

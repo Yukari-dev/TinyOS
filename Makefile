@@ -49,6 +49,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)/cpu
 	mkdir -p $(BUILD_DIR)/shell
 	mkdir -p $(BUILD_DIR)/util
+	mkdir -p $(BUILD_DIR)/fs
 
 # Build bootloader
 $(BOOT_BIN): $(BOOT_SRC) | $(BUILD_DIR)

@@ -22,6 +22,10 @@ void cmd_clear(char* arg);
 
 void cmd_echo(char* arg);
 
+void cmd_create_file(char* arg);
+
+void cmd_list_file(char* arg);
+
 void cmd_help(char* arg);
 
 void cmd_shutdown(char* arg);

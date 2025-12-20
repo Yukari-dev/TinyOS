@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include <stdarg.h>
 #include "../vga/vga.h"
+#define NULL ((void*)0)
 
 ColorMap colors[] = {
     {'k', 0x00}, // Black
@@ -92,6 +93,51 @@ short len(char* c){
         *c++;
     }
     return count;
+}
+
+void strcpy(const char* source, char* destination){
+    int i = 0;
+    for(i = 0; source[i] != '\0'; i++){
+        destination[i] = source[i];
+    }
+
+    destination[i] = '\0';
+}
+
+char* static_str;
+
+char* strtok(char *str, const char *delimiter){
+    if(str != 0) static_str = str;
+    if(static_str == 0 || *static_str == '\0') return 0;
+
+    while(*static_str != '\0' && *static_str == *delimiter){
+        static_str++;
+    }
+
+    if(*static_str == '\0') return 0;
+
+    char* token_start = static_str;
+    while(*static_str != '\0'){
+        if(*static_str == *delimiter){
+            *static_str = '\0';
+            static_str++;
+            return token_start;
+        }
+        static_str++;
+    }
+
+    return token_start;
+}
+
+char strcmp(unsigned char *str1, unsigned char *str2){
+    unsigned short j = 0;
+    while(str1[j] != '\0' || str2[j] != 0){
+        if(str1[j] != str2[j]){
+            return 'n';
+        }
+        j++;
+    }
+    return 'y';
 }
 
 void printc(char c, const char color){
