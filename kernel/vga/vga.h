@@ -8,8 +8,8 @@ static unsigned short height = 25;
 static unsigned short cursor_y = 0;
 static unsigned short cursor_x = 0;
 
-static void outb(unsigned short port, unsigned char data);
+void outb(unsigned short port, unsigned char data);
 
-static void update_cursor();
+void update_cursor();
 
 #endif

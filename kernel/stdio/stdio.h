@@ -18,5 +18,6 @@ short len(char* c);
 
 void clear();
 
+void scroll();
 
 #endif

@@ -104,6 +104,10 @@ void printc(char c, const char color){
         cursor_x = 0;
         cursor_y++;
     }
+
+    if(cursor_y >= height){
+        scroll();
+    }
 }
 
 
@@ -113,3 +117,23 @@ unsigned char find_color(char c){
     }
     return 255;
 }
+
+
+void scroll(){
+    for(int y = 1; y < height; y++){
+        for(int x = 0; x < width; x++){
+            int dest_index = (y - 1) * width + x;
+            int index = y * width + x;
+            video_mem[dest_index] = video_mem[index];
+        }
+    }
+
+    int last_line_start = (height - 1) * width;
+    for (int x = 0; x < width; x++) {
+        video_mem[last_line_start + x] = (unsigned short)' ' | (0x07 << 8);
+    }
+
+    cursor_y = height - 1;
+}
+
+

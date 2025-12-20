@@ -3,11 +3,11 @@
 #define video_mem 0xB8000
 
 
-static void outb(unsigned short port, unsigned char data){
+void outb(unsigned short port, unsigned char data){
     __asm__("outb %0, %1" : : "a"(data), "Nd"(port));
 }
 
-static void update_cursor(){
+void update_cursor(){
     unsigned short pos = cursor_y * width + cursor_x;
 
     outb(0x3D4, 0x0F);
