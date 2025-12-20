@@ -10,6 +10,9 @@ ColorMap colors[] = {
 void clear(){
     for (int i = 0; i < width * height; i++){
         video_mem[i] = (unsigned short)' ' | (0x07 << 8);
+        cursor_x = 0;
+        cursor_y = 0;
+        update_cursor();
     }
 }
 

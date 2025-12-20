@@ -1,6 +1,7 @@
 #include "vga/vga.h"
 #include "stdio/stdio.h"
 #include "cpu/idt.h"
+#include "shell/shell.h"
 
 void initializing(){
     printf(0x07, "[%sg]Initializing T-OS...\n", "+");
@@ -22,14 +23,19 @@ void initializing(){
     printf(0x07, "[%sg]interrupts are enabled.\n", "+");
 
     printf(0x07, "Welcome to T-OS!\n");
+
     enable_cursor(14, 15);
     update_cursor();
+
 }
 
 void main(){
     clear();
 
     initializing();
+    
+    // FOR SHELL
+    initialize();
 
     while(1);
 }

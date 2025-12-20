@@ -1,20 +1,11 @@
 #include "vga.h"
 
+
 unsigned short* video_mem = (unsigned short*)0xB8000;
 unsigned short width = 80;
 unsigned short height = 25;
 unsigned short cursor_y = 0;
 unsigned short cursor_x = 0;
-
-void outb(unsigned short port, unsigned char data){
-    __asm__("outb %0, %1" : : "a"(data), "Nd"(port));
-}
-
-unsigned char inb(unsigned short port) {
-    unsigned char result;
-    __asm__ volatile("inb %1, %0" : "=a"(result) : "Nd"(port));
-    return result;
-}
 
 void update_cursor(){
     unsigned short pos = cursor_y * width + cursor_x;

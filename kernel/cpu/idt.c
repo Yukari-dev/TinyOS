@@ -1,5 +1,5 @@
 #include "idt.h"
-#include "../vga/vga.h"
+#include "../util/util.h"
 
 idt_entry_t idt[256];
 idt_ptr_t idt_reg;
