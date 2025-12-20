@@ -33,7 +33,7 @@ C_SOURCES = $(shell find $(KERNEL_DIR) -name "*.c")
 C_OBJECTS = $(patsubst $(KERNEL_DIR)/%.c, $(BUILD_DIR)/%.o, $(C_SOURCES))
 
 # Entry point (usually needs to be linked first)
-KERNEL_ENTRY_ASM = $(KERNEL_DIR)/kernelentry.asm
+KERNEL_ENTRY_ASM = $(KERNEL_DIR)/entry/kernelentry.asm
 KERNEL_ENTRY_OBJ = $(BUILD_DIR)/kernelentry.o
 KERNEL_BIN = $(BUILD_DIR)/kernel.bin
 
