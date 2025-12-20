@@ -9,7 +9,7 @@ ColorMap colors[] = {
 
 void clear(){
     for (int i = 0; i < width * height; i++){
-        video_mem[i] = 0x70;
+        video_mem[i] = (unsigned short)' ' | (0x07 << 8);
     }
 }
 
@@ -34,7 +34,7 @@ void printf(const char default_color, const char* format, ...){
                     while(*s) printc(*s++, color);
                     break;
                 case 'c':
-                    char c = (char)va_arg(args, char*);
+                    char c = (char)va_arg(args, int);
                     printc(c, color);
                     break;
                 case 'i':
@@ -48,20 +48,7 @@ void printf(const char default_color, const char* format, ...){
         }
     }
     va_end(args);
-}
-
-char get_color(char color){
-    switch(color){
-        case 'w':
-            return 0x0F;
-        case 'b':
-            return 0x01;
-        case 'g':
-            return 0x02;
-        case 'r':
-            return 0x03;
-        default: return 0x0F;
-    }
+    update_cursor();
 }
 
 char int_buffer[32];
@@ -108,6 +95,8 @@ void printc(char c, const char color){
     if(cursor_y >= height){
         scroll();
     }
+
+    update_cursor();
 }
 
 

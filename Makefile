@@ -45,6 +45,8 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 	mkdir -p $(BUILD_DIR)/vga
 	mkdir -p $(BUILD_DIR)/stdio
+	mkdir -p $(BUILD_DIR)/drivers
+	mkdir -p $(BUILD_DIR)/cpu
 
 # Build bootloader
 $(BOOT_BIN): $(BOOT_SRC) | $(BUILD_DIR)

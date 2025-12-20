@@ -1,15 +1,20 @@
 #ifndef VGA_H
 #define VGA_H
 
-static unsigned short* video_mem = (unsigned short*)0xB8000;
-static unsigned short width = 80;
-static unsigned short height = 25;
+extern unsigned short* video_mem;
+extern unsigned short width;
+extern unsigned short height;
 
-static unsigned short cursor_y = 0;
-static unsigned short cursor_x = 0;
+extern unsigned short cursor_y;
+extern unsigned short cursor_x;
 
 void outb(unsigned short port, unsigned char data);
 
+unsigned char inb(unsigned short port);
+
 void update_cursor();
+
+void enable_cursor(unsigned char cursor_start, unsigned char cursor_end);
+
 
 #endif

@@ -9,7 +9,6 @@ typedef struct {
 void printf(const char color, const char* format, ...);
 void printc(char c, const char color);
 
-char get_color(char color);
 char* num_to_char(int num);
 
 unsigned char find_color(char c);
