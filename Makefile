@@ -50,6 +50,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)/shell
 	mkdir -p $(BUILD_DIR)/util
 	mkdir -p $(BUILD_DIR)/fs
+	mkdir -p $(BUILD_DIR)/memory
 
 # Build bootloader
 $(BOOT_BIN): $(BOOT_SRC) | $(BUILD_DIR)

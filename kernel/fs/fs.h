@@ -2,14 +2,15 @@
 #define FS_H
 
 #define MAX_FILES 10
-#define MAX_FILE_SIZE 512
+#define MAX_FILE_SIZE 479
+#define SECTOR_START 100
 
 typedef struct{
     char name[32];
     char content[MAX_FILE_SIZE];
     unsigned int size;
     unsigned int active;
-}RAMFile;
+}__attribute__((packed)) RAMFile;
 
 extern RAMFile ramdisk[MAX_FILES];
 
@@ -19,8 +20,10 @@ void create_file(char* name);
 
 void write_file(char* file_name, char* content);
 
-char* read_file(char* file_name);
+void read_file(char* file_name);
 
 void list_files();
+
+void format();
 
 #endif

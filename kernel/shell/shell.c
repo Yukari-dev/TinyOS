@@ -3,13 +3,18 @@
 #include "../util/util.h"
 #include "../vga/vga.h"
 #include "../fs/fs.h"
+#include "../drivers/ata.h"
 #define NULL ((void*)0)
 
 Command command_table[] = {
     {"clear", "Clears the screen.", cmd_clear},
-    {"echo", "output the arguments to the console.", cmd_echo},
-    {"touch", "create a file", cmd_create_file},
-    {"ls", "list all files", cmd_list_file},
+    {"echo", "output/input the arguments to the console.", cmd_echo},
+    {"touch", "create a file", cmd_touch},
+    {"cat", "read a file", cmd_cat},
+    {"ls", "list all files", cmd_ls},
+    {"lsdisk", "list all diskes", cmd_lsdisk},
+    {"dump", "dump the active disk content", cmd_dump},
+    {"format", "format the active disk content", cmd_format},
     {"help", "Show the help screen.", cmd_help},
     {"shutdown", "Shutdown the computer.", cmd_shutdown},
     {"reboot", "Reboot the computer.", cmd_reboot},
@@ -56,14 +61,6 @@ void cmd_echo(char* arg){
         printf(0x0C, "Usage: echo \"text\" >> file.txt\n");
         return;
     }
-    
-    if(arg[0] == '<' && arg[1] == '<'){
-        char* file_name = strtok(arg + 2, " ");
-        if(file_name){
-            printf(0x0F, "%s\n", read_file(file_name));
-        }
-        return;
-    }
 
     char* content = strtok(arg, "\"");
     char* op = strtok(NULL, " ");
@@ -76,7 +73,7 @@ void cmd_echo(char* arg){
     if (content) printf(0x07, "%s\n", content);
 }
 
-void cmd_create_file(char* arg){
+void cmd_touch(char* arg){
     if(arg){
         create_file(arg);
     } else{
@@ -84,19 +81,53 @@ void cmd_create_file(char* arg){
     }
 }
 
-void cmd_list_file(char* arg){
+void cmd_ls(char* arg){
     list_files();
+}
+
+void cmd_lsdisk(char* arg){
+    printf(0x07, "[%so]Scanning for IDE/ATA devices...\n", "-");
+    scan_drives();
+
+    int found = 0;
+    for(int i = 0; i < 4; i++){
+        if(detected_drives[i].exists){
+            printf(0x07, "Disk [%i]: %sW\n", i, detected_drives[i].model);
+            found = 1;
+        }
+    }
+
+    if(!found) printf(0x0C, "No drives Detected.\n");
+
+}
+
+void cmd_dump(char* arg){
+    unsigned short disk_buffer[256]; // A local 512-byte buffer
+    scan_drives();
+
+    printf(0x07, "Reading Sector 1 (Directory Slot)...\n");
+
+    ata_rw_sector(1, disk_buffer, 0x20); 
+
+    unsigned char* bytes = (unsigned char*)disk_buffer;
+
+    for(int i = 0; i < 64; i++) {
+        printf(0x07, "%i", bytes[i]); 
+        printc(' ', 0x07);
+
+        if((i + 1) % 16 == 0) printf(0x07, "\n");
+    }
+}
+
+void cmd_format(char* arg){
+    format();
 }
 
 void cmd_cat(char* arg){
     if(arg){
-        char* cmd = strtok(arg, " ");
-        char* text = strtok(NULL, "\"");
-        char* op = strtok(NULL, " ");
-        char* file = strtok(NULL, " ");
-        printf(0x07, "%s %s %s %s", cmd, text, op, file);
+        read_file(arg);
     } else{
-        printf(0x07, "%sr", "you must have at least one argument to create a file.\n");
+        printf(0x0C, "%sr", "Usage: cat <filename>\n");
     }
 }
 

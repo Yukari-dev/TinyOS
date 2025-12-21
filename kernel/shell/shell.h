@@ -22,9 +22,17 @@ void cmd_clear(char* arg);
 
 void cmd_echo(char* arg);
 
-void cmd_create_file(char* arg);
+void cmd_touch(char* arg);
 
-void cmd_list_file(char* arg);
+void cmd_cat(char* arg);
+
+void cmd_ls(char* arg);
+
+void cmd_lsdisk(char* arg);
+
+void cmd_dump(char* arg);
+
+void cmd_format(char* arg);
 
 void cmd_help(char* arg);
 

@@ -1,7 +1,9 @@
+#include "fs/fs.h"
 #include "vga/vga.h"
 #include "stdio/stdio.h"
 #include "cpu/idt.h"
 #include "shell/shell.h"
+#include "memory/heap.h"
 
 
 void initializing(){
@@ -24,6 +26,9 @@ void initializing(){
     printf(0x07, "[%so]Enabeling the interrupts...\n", ".");
     __asm__ __volatile__("sti");
     printf(0x07, "[%sg]interrupts are enabled.\n", "+");
+
+    init_ramdisk();
+    init_heap();
 
     printf(0x07, "Welcome to T-OS!\n");
 
