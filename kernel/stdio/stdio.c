@@ -162,6 +162,15 @@ void printc(char c, const char color){
     update_cursor();
 }
 
+void print_at(short x, short y, char* str, unsigned char color){
+    unsigned char* vga_mem = (unsigned char*)0xB8000;
+    int offset = (y * width + x) * 2;
+    
+    for(int i = 0; str[i] != '\0'; i++){
+        vga_mem[offset + (i * 2)] = str[i];
+        vga_mem[offset + (i * 2) + 1] = color;
+    }
+}
 
 unsigned char find_color(char c){
     for(int i = 0; i < 16; i++){

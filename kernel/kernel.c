@@ -4,6 +4,7 @@
 #include "cpu/idt.h"
 #include "shell/shell.h"
 #include "memory/heap.h"
+#include "time/time.h"
 
 
 void initializing(){
@@ -31,6 +32,7 @@ void initializing(){
     init_heap();
 
     printf(0x07, "Welcome to T-OS!\n");
+    init_timer(100);
 
     enable_cursor(14, 15);
     update_cursor();
@@ -45,6 +47,9 @@ void main(){
     // FOR SHELL
     initialize();
 
-    while(1);
+
+    while(1){
+        update_clock_display();
+    }
 }
 

@@ -4,6 +4,7 @@
 #include "../vga/vga.h"
 #include "../fs/fs.h"
 #include "../drivers/ata.h"
+#include "../time/time.h"
 #define NULL ((void*)0)
 
 Command command_table[] = {

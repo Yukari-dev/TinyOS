@@ -17,6 +17,7 @@ enum TextType{
 
 void printf(const char color, const char* format, ...);
 void printc(char c, const char color);
+void print_at(short x, short y, char* str, unsigned char color);
 
 char* num_to_char(int num);
 
