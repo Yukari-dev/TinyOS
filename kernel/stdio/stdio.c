@@ -133,11 +133,11 @@ char strcmp(unsigned char *str1, unsigned char *str2){
     unsigned short j = 0;
     while(str1[j] != '\0' || str2[j] != 0){
         if(str1[j] != str2[j]){
-            return 'n';
+            return 0;
         }
         j++;
     }
-    return 'y';
+    return 1;
 }
 
 void printc(char c, const char color){

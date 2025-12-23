@@ -1,5 +1,6 @@
 #include "keyboard.h"
 #include "../stdio/stdio.h" 
+#include "../util/util.h" 
 #include "../vga/vga.h" 
 #include "../shell/shell.h" 
 
@@ -56,6 +57,11 @@ void show_input(unsigned char *input){
 
 unsigned short shift_pressed = 0;
 
+char cmd_history[5][64];
+int history_count = 0;
+short history_view_index = -1;
+short max_history_count = 5;
+
 void keyboard_handler() {
     unsigned char scancode = inb(0x60);
     outb(0x20, 0x20);
@@ -74,18 +80,27 @@ void keyboard_handler() {
 
     // 2. Check for Enter Key
     if (scancode == 0x1C) {
-        input_buffer[input_index] = '\0';
-        printf(0x07, "\n");
+        if(input_index > 0){
+            input_buffer[input_index] = '\0';
 
-        if (input_index > 0) {
+            for(int i = max_history_count - 1; i > 0; i--){
+                strcpy(cmd_history[i - 1], cmd_history[i]);
+            }
+            strcpy(input_buffer, cmd_history[0]);
+            
+            if(history_count < max_history_count) history_count++;
+
+            printf(0x07, "\n");
+
             execute_cmd(input_buffer);
-        } else {
-            initialize(); 
-        }
 
-        clear_input(input_buffer);
-        update_cursor();
-        return;
+            history_view_index = -1;
+
+            clear_input(input_buffer);
+            update_cursor();
+            return;
+        }
+        initialize(); 
     }
 
     // 3. Check for Backspace
@@ -99,6 +114,54 @@ void keyboard_handler() {
                 int index = cursor_y * width + cursor_x;
                 video_mem[index] = (unsigned short)' ' | (unsigned short)0x07 << 8;
             }
+        }
+        update_cursor();
+        return;
+    }
+    
+    // Up Arrow
+    if(scancode == 0x48){
+        strcpy('\0', input_buffer);
+        if(history_view_index < history_count - 1){
+            history_view_index++;
+
+            while(input_index > 0){
+                input_index--;
+                input_buffer[input_index] = '\0';
+                
+                if (cursor_x > 1) {
+                    cursor_x--;
+                    int index = cursor_y * width + cursor_x;
+                    video_mem[index] = (unsigned short)' ' | (unsigned short)0x07 << 8;
+                }
+
+            }
+            strcpy(cmd_history[history_view_index], input_buffer);
+            input_index = len(input_buffer);
+
+            printf(0x0F, "%s", input_buffer);
+        }
+        return;
+    }
+    
+    // Down Arrow
+    if(scancode == 0x50){
+        return;
+    }
+    
+    // Left Arrow
+    if(scancode == 0x4B){
+        if(cursor_x > 1){
+            cursor_x--;
+        }
+        update_cursor();
+        return;
+    }
+    
+    // Right Arrow
+    if(scancode == 0x4D){
+        if(cursor_x < input_index){
+            cursor_x++;
         }
         update_cursor();
         return;

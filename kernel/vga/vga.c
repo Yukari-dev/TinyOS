@@ -1,4 +1,5 @@
 #include "vga.h"
+#include "../util/util.h"
 
 
 unsigned short* video_mem = (unsigned short*)0xB8000;

@@ -8,10 +8,6 @@ extern unsigned short height;
 extern unsigned short cursor_y;
 extern unsigned short cursor_x;
 
-void outb(unsigned short port, unsigned char data);
-
-unsigned char inb(unsigned short port);
-
 void init_graphics_mode();
 
 void disable_blinking();

@@ -42,7 +42,7 @@ void execute_cmd(unsigned char *input){
     }
 
     for(int i = 0; i < num_commands; i++){
-        if(strcmp(input, command_table[i].name) == 'y'){
+        if(strcmp(input, command_table[i].name) == 1){
             command_table[i].function(arg);
             initialize();
             return;

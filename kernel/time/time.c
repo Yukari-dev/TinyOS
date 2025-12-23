@@ -1,6 +1,6 @@
 #include "time.h"
 #include "../stdio/stdio.h"
-#include "../vga/vga.h"
+#include "../util/util.h"
 
 volatile unsigned int timer_ticks = 0;
 unsigned char second = 0;
