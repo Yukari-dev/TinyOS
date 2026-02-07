@@ -77,7 +77,9 @@ $(DISK_IMG): $(BOOT_BIN) $(KERNEL_BIN)
 
 # Run in QEMU
 run: $(DISK_IMG)
-	$(QEMU) -drive format=raw,file=$< -display sdl
+	qemu-system-x86_64 -drive format=raw,file=myos.img,index=0,if=ide \
+					   -drive format=raw,file=fat:rw:data,index=1,if=ide \
+					   -m 128 -display sdl
 
 clean:
 	rm -rf $(BUILD_DIR) $(DISK_IMG)

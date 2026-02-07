@@ -1,3 +1,4 @@
+#include "drivers/ata.h"
 #include "fs/fs.h"
 #include "vga/vga.h"
 #include "stdio/stdio.h"
@@ -30,6 +31,10 @@ void initializing(){
 
     init_ramdisk();
     init_heap();
+
+    scan_disk();
+    unsigned short buffer[256];
+    debug_drives();
 
     printf(0x07, "Welcome to T-OS!\n");
     init_timer(100);

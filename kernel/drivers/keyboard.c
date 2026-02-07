@@ -100,20 +100,27 @@ void keyboard_handler() {
             update_cursor();
             return;
         }
+
+        printf(0x07, "\n");
         initialize(); 
+        return;
     }
 
     // 3. Check for Backspace
     if (scancode == 0x0E) {
-        if (input_index > 0 && is_shell == 'y') {
-            input_index--;
-            input_buffer[input_index] = '\0';
-            
-            if (cursor_x > 1) {
-                cursor_x--;
-                int index = cursor_y * width + cursor_x;
-                video_mem[index] = (unsigned short)' ' | (unsigned short)0x07 << 8;
+        int buffer_pos = cursor_x - 1;
+        if (buffer_pos < input_index && is_shell == 'y') {
+            for(int i = buffer_pos; i < input_index; i++){
+                input_buffer[i] = input_buffer[i + 1];
             }
+            input_index--;
+            int saved_x = cursor_x;
+            for(int i = buffer_pos; i < input_index; i++){
+                printc(input_buffer[i], 0x07);
+            }
+
+            printc(' ', 0x07);
+            cursor_x = saved_x - 1;
         }
         update_cursor();
         return;
@@ -160,7 +167,7 @@ void keyboard_handler() {
     
     // Right Arrow
     if(scancode == 0x4D){
-        if(cursor_x < input_index){
+        if(cursor_x < input_index + 1){
             cursor_x++;
         }
         update_cursor();
@@ -170,12 +177,22 @@ void keyboard_handler() {
     // 4. Handle Character Keys
     char letter = shift_pressed ? shift_map[scancode] : keyboard_map[scancode];
 
-    if (letter > 0) {
-        if (input_index < 127) {
-            printc(letter, 0x07);
-            input_buffer[input_index] = letter;
-            input_index++;
-            update_cursor();
+    if (letter > 0 && input_index < 127) {
+        for(int i = input_index; i > cursor_x - 1; i--){
+            input_buffer[i] = input_buffer[i - 1];
         }
+        input_buffer[cursor_x - 1] = letter;
+        input_index++;
+        input_buffer[input_index] = '\0';
+
+        int old_x = cursor_x;
+        int old_y = cursor_y;
+
+        for(int i = cursor_x - 1; i < input_index; i++){
+            printc(input_buffer[i], 0x07);
+        }
+        cursor_x = old_x + 1;
+        cursor_y = old_y;
+        update_cursor();
     }
 }

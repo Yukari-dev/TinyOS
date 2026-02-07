@@ -63,7 +63,6 @@ void format(){
     for(int i = 0; i < 479; i++) blank.content[i] = '\0';
 
     for(int s = 1; s <= 11; s++){
-        ata_rw_sector(s, (unsigned short*)&blank, 0x30);
         printf(0x07, "Wiping Sector %i...\n", s);
     }
 

@@ -88,36 +88,10 @@ void cmd_ls(char* arg){
 
 void cmd_lsdisk(char* arg){
     printf(0x07, "[%so]Scanning for IDE/ATA devices...\n", "-");
-    scan_drives();
-
-    int found = 0;
-    for(int i = 0; i < 4; i++){
-        if(detected_drives[i].exists){
-            printf(0x07, "Disk [%i]: %sW\n", i, detected_drives[i].model);
-            found = 1;
-        }
-    }
-
-    if(!found) printf(0x0C, "No drives Detected.\n");
-
 }
 
 void cmd_dump(char* arg){
     unsigned short disk_buffer[256]; // A local 512-byte buffer
-    scan_drives();
-
-    printf(0x07, "Reading Sector 1 (Directory Slot)...\n");
-
-    ata_rw_sector(1, disk_buffer, 0x20); 
-
-    unsigned char* bytes = (unsigned char*)disk_buffer;
-
-    for(int i = 0; i < 64; i++) {
-        printf(0x07, "%i", bytes[i]); 
-        printc(' ', 0x07);
-
-        if((i + 1) % 16 == 0) printf(0x07, "\n");
-    }
 }
 
 void cmd_format(char* arg){

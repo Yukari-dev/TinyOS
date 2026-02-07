@@ -1,19 +1,12 @@
 #ifndef ATA_H
 #define ATA_H
 
-typedef struct{
-    unsigned char port;
-    unsigned char drive;
-    char model[41];
-    int exists;
-} DriveInfo;
+void scan_disk();
 
-extern DriveInfo detected_drives[4];
+void read_disk(unsigned int lba, unsigned short *buffer, unsigned char drive);
 
-void ata_rw_sector(unsigned int lba, unsigned short* buffer, unsigned char command);
+void explore_fat_storage();
 
-void scan_drives();
-
-void set_active_drive(unsigned short port, unsigned char dev);
+void debug_drives();
 
 #endif
