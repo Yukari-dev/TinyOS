@@ -1,60 +1,18 @@
-#include "drivers/ata.h"
-#include "fs/fs.h"
-#include "vga/vga.h"
-#include "stdio/stdio.h"
-#include "cpu/idt.h"
-#include "shell/shell.h"
-#include "memory/heap.h"
-#include "time/time.h"
+#define WIDTH 320
+#define HEIGHT 200
 
 
-void initializing(){
-    disable_blinking();
-
-    printf(0x07, "[%so]Initializing T-OS...\n", ".");
-
-    printf(0x07, "[%so]Keyboard IDT is initializing...\n", ".");
-    init_keyboard_idt();
-    printf(0x07, "[%sg]Keyboard IDT is inialized.\n", "+");
-
-    printf(0x07, "[%so]Remaping the PIC in process...\n", ".");
-    pic_remap();
-    printf(0x07, "[%sg]PIC is successfully remaped.\n", "+");
-
-    printf(0x07, "[%so]Loading IDT to CPU in process...\n", ".");
-    load_idt();
-    printf(0x07, "[%sg]IDT is successfully loaded to CPU.\n", "+");
-
-    printf(0x07, "[%so]Enabeling the interrupts...\n", ".");
-    __asm__ __volatile__("sti");
-    printf(0x07, "[%sg]interrupts are enabled.\n", "+");
-
-    init_ramdisk();
-    init_heap();
-
-    scan_disk();
-    unsigned short buffer[256];
-    debug_drives();
-
-    printf(0x07, "Welcome to T-OS!\n");
-    init_timer(100);
-
-    enable_cursor(14, 15);
-    update_cursor();
-
+void put_pixel(int x, int y, unsigned char color){
+    unsigned char* screen = (unsigned char*)0xA0000;
+    screen[y * 320 + x] = color;
 }
 
 void main(){
-    clear();
-
-    initializing();
-    
-    // FOR SHELL
-    initialize();
-
-
-    while(1){
-        update_clock_display();
+    for(int y = 0; y < HEIGHT; y++){
+        for(int x = 0; x < WIDTH; x++){
+            put_pixel(x, y, 0x03);
+        }
     }
+    while (1);
 }
 

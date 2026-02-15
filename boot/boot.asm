@@ -3,29 +3,32 @@
 [ORG 0x7C00] ; the origin of the bootloader in the memory
 
 start:
-    cli         ; disable the interrupts
-    xor ax, ax  ; zero out the ax
-    mov ds, ax  ; set ds to 0
-    mov es, ax  ; set es to 0
-    mov ss, ax  ; set ss to 0
-    mov sp, 0x7C00 ; set stack pointer below the bootloader
+    cli             
+    xor ax, ax      
+    mov ds, ax      
+    mov es, ax      
+    mov ss, ax      
+    mov sp, 0x7C00  
     
-    ;load kernel from disk (assuming the kernel is at the next sector)
-    mov ah, 0x02 ; BIOS read sector function
-    mov al, 50    ; number of sectors to read
-    mov ch, 0    ; cylinder 0
-    mov cl, 2    ; sector 2 (bootloader is at sector 1)
-    mov dh, 0    ; head 0
-    mov bx, 0x1000 ; load kernel at 0x1000
-    int 0x13   ; BIOS interrupt for disk I/O
-    jc disk_err ; jump if carry flag set (error)
-    
-    ;switch to protected mode (32 bits)
+    ; 1. Load kernel from disk
+    mov ah, 0x02 
+    mov al, 50    
+    mov ch, 0     
+    mov cl, 2     
+    mov dh, 0     
+    mov bx, 0x1000 
+    int 0x13      
+    jc disk_err 
+
+    ; 2. SWITCH TO GRAPHICS MODE HERE (While still in Real Mode)
+    mov ax, 0x0013
+    int 0x10
+
+    ; 3. Transition to Protected Mode
     lgdt [gdt_descriptor]
     mov eax, cr0
     or eax, 1
     mov cr0, eax
-
 
     jmp 0x08:protected_mode
 

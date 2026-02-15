@@ -1,0 +1,2 @@
+put_pixel
+main call:[put_pixel] noreturn:[put_pixel]
