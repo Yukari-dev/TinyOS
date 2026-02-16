@@ -1,0 +1,2 @@
+draw_char global:[Screen,vga_font] call:[put_pixel] noreturn:[put_pixel]
+draw_string call:[draw_char]

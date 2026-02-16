@@ -1,1 +1,1 @@
-vga.a1:::/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.c
+kernel.a1:::/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c

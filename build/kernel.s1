@@ -1,1 +1,1 @@
-main global:[Mouse,Screen] call:[clear,draw_rect,flip,inb,init,update] noreturn:[flip,inb]
+main global:[Mouse,Screen,font] call:[clear,draw_rect,draw_string,flip,inb,init,update] noreturn:[flip,inb]

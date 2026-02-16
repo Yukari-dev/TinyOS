@@ -43,22 +43,13 @@ all: $(DISK_IMG)
 # Create build directory and subfolders to mirror the kernel structure
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
-	mkdir -p $(BUILD_DIR)/vga
-	mkdir -p $(BUILD_DIR)/stdio
-	mkdir -p $(BUILD_DIR)/drivers
-	mkdir -p $(BUILD_DIR)/cpu
-	mkdir -p $(BUILD_DIR)/shell
-	mkdir -p $(BUILD_DIR)/util
-	mkdir -p $(BUILD_DIR)/fs
-	mkdir -p $(BUILD_DIR)/memory
-	mkdir -p $(BUILD_DIR)/time
 
 # Build bootloader
 $(BOOT_BIN): $(BOOT_SRC) | $(BUILD_DIR)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-# AUTOMATIC RULE: Compile any .c file into a .o file
 $(BUILD_DIR)/%.o: $(KERNEL_DIR)/%.c | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	$(GCC) $(CFLAGS) $< -o $@
 
 # Assemble kernel entry point
