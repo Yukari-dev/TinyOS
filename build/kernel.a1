@@ -1,13 +1,3 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="15083397564718242555">
-        <error id="unreadVariable" severity="style" msg="Variable &apos;my_app&apos; is assigned a value that is never used." verbose="Variable &apos;my_app&apos; is assigned a value that is never used." cwe="563" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c">
-            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="13" column="16"/>
-            <symbol>my_app</symbol>
-        </error>
-        <error id="unreadVariable" severity="style" msg="Variable &apos;my_app&apos; is assigned a value that is never used." verbose="Variable &apos;my_app&apos; is assigned a value that is never used." cwe="563" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c">
-            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="13" column="9"/>
-            <symbol>my_app</symbol>
-        </error>
-  <FileInfo check="ctu">
-<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/windows/window.h:30:5" call-funcname="wm_create" call-argnr="6" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="13" col="27" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+<analyzerinfo hash="4073134503155921067">
 </analyzerinfo>

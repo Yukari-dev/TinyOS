@@ -1,1 +1,1 @@
-mouse.a1:::/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/mouse.c
+window.a1:::/home/yukari/coding_projects/OS/TinyOS/kernel/ui/windows/window.c

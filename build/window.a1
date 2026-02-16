@@ -1,3 +1,8 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="12175565343529358919">
+<analyzerinfo hash="6706753098313897240">
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/windows/window.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/windows/window.c" line="0" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/libs/string.h:5:7" call-funcname="memset" call-argnr="2" file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/windows/window.c" line="17" col="19" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
 </analyzerinfo>

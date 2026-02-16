@@ -3,6 +3,9 @@
 #include "ui/fonts/font.h"
 #include "util/util.h"
 #include "ui/windows/window.h"
+#include "ui/apps/app.h"
+
+extern AppInterface MonitorApp;
 
 void main(){
     // Clear keyboard buffer
@@ -10,7 +13,10 @@ void main(){
     
     Mouse.init();
     wm_init();
-    int my_app = wm_create(100, 50, 80, 40, "Monitor", 0);
+    int win_id = wm_create(100, 50, 150, 80, "Monitor", 1);
+    int win_id2 = wm_create(100, 50, 150, 80, "Monitor2", 1);
+    WM.pool[win_id].app = &MonitorApp;
+    WM.pool[win_id2].app = &MonitorApp;
 
     while (1){
         Mouse.update();
@@ -18,7 +24,6 @@ void main(){
         wm_update();
         wm_render();
 
-        
         unsigned char cursor_color = Mouse.left_clicked ? 4 : 15;
         Screen.draw_rect(Mouse.x, Mouse.y, 2, 2, cursor_color);
 
