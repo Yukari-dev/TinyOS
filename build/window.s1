@@ -1,0 +1,6 @@
+point_in_rect call:[return] noreturn:[return]
+rect_overlapping call:[return] noreturn:[return]
+wm_init global:[WM]
+wm_create global:[WM]
+wm_update global:[Mouse,WM]
+wm_render global:[Font,Screen,WM] call:[draw_rect,draw_string] noreturn:[draw_string]

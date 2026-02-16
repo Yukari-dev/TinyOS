@@ -1,0 +1,5 @@
+#include "libs/stdint.h"
+#include "libs/stdbool.h"
+#include "libs/string.h"
+#include "libs/math.h"
+#include "vga/vga.h"

@@ -41,7 +41,9 @@ void update_mouse() {
 
         if (Mouse.cycle == 3) {
             Mouse.cycle = 0;
-            Mouse.left_clicked = (Mouse.packet[0] & 0x01);
+            unsigned char button_state = (Mouse.packet[0] & 0x01);
+            Mouse.left_clicked = (button_state && !Mouse.left_down);
+            Mouse.left_down = button_state;
             Mouse.x += (signed char)Mouse.packet[1];
             Mouse.y -= (signed char)Mouse.packet[2];
 
@@ -60,6 +62,7 @@ MouseDevice Mouse = {
     .x = 160,
     .y = 100,
     .left_clicked = 0,
+    .left_down = 0,
     .cycle = 0,
     .init = init_mouse,
     .update = update_mouse

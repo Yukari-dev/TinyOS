@@ -23,7 +23,7 @@ void draw_string(int x, int y, const char* string, unsigned char color){
     }
 }
 
-FontEngine font = {
+FontEngine Font = {
     .data = vga_font,
     .width = 8,
     .height = 8,

@@ -10,6 +10,6 @@ typedef struct{
     void (*draw_string)(int x, int y, const char* str, unsigned char color);
 } FontEngine;
 
-extern FontEngine font;
+extern FontEngine Font;
 
 #endif

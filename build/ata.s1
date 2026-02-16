@@ -1,4 +1,0 @@
-scan_disk call:[inb,inw,outb,printc] noreturn:[printc]
-read_disk call:[inb,inw,outb] noreturn:[inw]
-explore_fat_storage call:[read_disk]
-debug_drives call:[inb,outb] noreturn:[inb]

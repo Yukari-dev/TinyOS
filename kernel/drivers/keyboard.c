@@ -1,4 +1,8 @@
 #include "keyboard.h"
+#include "../stdio/stdio.h" 
+#include "../util/util.h" 
+#include "../vga/vga.h" 
+#include "../shell/shell.h" 
 
 unsigned char keyboard_map[128] = {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 9 */
@@ -33,5 +37,31 @@ unsigned char shift_map[128] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
+unsigned char input_buffer[128];
+unsigned short input_index = 0;
+
+unsigned char is_shell = 'y';
+
+void clear_input(unsigned char *input){
+    for(int i = 0; i < 128; i++){
+        input_buffer[i] = '\0';
+    }
+    input_index = 0;
+}
+
+void show_input(unsigned char *input){
+    for(int i = 0; i < input_index; i++){
+    }
+}
+
+unsigned short shift_pressed = 0;
+
+char cmd_history[5][64];
+int history_count = 0;
+short history_view_index = -1;
+short max_history_count = 5;
+
 void keyboard_handler() {
+    unsigned char scancode = inb(0x60);
+    outb(0x20, 0x20);
 }

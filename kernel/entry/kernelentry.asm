@@ -10,23 +10,8 @@ _start:
 
 ; This is the bridge between the Hardware Interrupt and your C code
 keyboard_wrapper:
-    pusha               ; Save EAX, ECX, EDX, EBX, ESP, EBP, ESI, EDI
-    
-    push ds             ; Save Data Segments
-    push es
-    push fs
-    push gs
-
-    mov ax, 0x10        ; Load Kernel Data Segment
-    mov ds, ax
-    mov es, ax
-
-    call keyboard_handler ; Run your C code
-
-    pop gs              ; Restore everything
-    pop fs
-    pop es
-    pop ds
+    pusha
+    ; Don't change DS/ES yet, let's see if it works with current segments
+    call keyboard_handler
     popa
-    
-    iretd               ; Special Interrupt Return
+    iretd

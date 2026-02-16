@@ -10,6 +10,7 @@ typedef struct {
     int x;
     int y;
     unsigned char left_clicked;
+    unsigned char left_down;
     unsigned char cycle;
     unsigned char packet[3];
 

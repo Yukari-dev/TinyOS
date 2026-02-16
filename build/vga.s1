@@ -1,4 +1,0 @@
-clear global:[back_buffer]
-put_pixel global:[back_buffer]
-draw_rect global:[back_buffer]
-flip global:[back_buffer]

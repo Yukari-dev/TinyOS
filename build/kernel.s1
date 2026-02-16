@@ -1,1 +1,3 @@
-main global:[Mouse,Screen,font] call:[clear,draw_rect,draw_string,flip,inb,init,update] noreturn:[flip,inb]
+point_in_rect call:[return] noreturn:[return]
+rect_overlapping call:[return] noreturn:[return]
+main global:[Mouse,Screen] call:[clear,draw_rect,flip,inb,init,update,wm_create,wm_init,wm_render,wm_update] noreturn:[flip,inb]
