@@ -1,20 +1,18 @@
 #ifndef VGA_H
 #define VGA_H
 
-extern unsigned short* video_mem;
-extern unsigned short width;
-extern unsigned short height;
+#define WIDTH 320
+#define HEIGHT 200
+#define SIZE WIDTH*HEIGHT
 
-extern unsigned short cursor_y;
-extern unsigned short cursor_x;
+typedef struct{
+    unsigned char* buffer;
+    void (*clear)(unsigned char color);
+    void (*put_pixel)(int x, int y, unsigned char color);
+    void (*draw_rect)(int x, int y, int w, int h, unsigned char color);
+    void (*flip)();
+} VGADriver;
 
-void init_graphics_mode();
-
-void disable_blinking();
-
-void update_cursor();
-
-void enable_cursor(unsigned char cursor_start, unsigned char cursor_end);
-
+extern VGADriver Screen;
 
 #endif

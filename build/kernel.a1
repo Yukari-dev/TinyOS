@@ -1,9 +1,3 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="15001393156233420628">
-  <FileInfo check="ctu">
-<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c:5:6" call-funcname="put_pixel" call-argnr="1" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="13" col="22" call-argexpr="x" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
-  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="12" col="21" info="Assignment &apos;x=0&apos;, assigned value is 0"/>
-</function-call><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c:5:6" call-funcname="put_pixel" call-argnr="2" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="13" col="22" call-argexpr="y" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
-  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="11" col="17" info="Assignment &apos;y=0&apos;, assigned value is 0"/>
-</function-call>  </FileInfo>
+<analyzerinfo hash="10873470673567187940">
 </analyzerinfo>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="12177268191175145243">
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/mouse.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/mouse.c" line="0" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/mouse.c:3:13" call-funcname="mouse_wait" call-argnr="1" file="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/mouse.c" line="24" col="15" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+</analyzerinfo>

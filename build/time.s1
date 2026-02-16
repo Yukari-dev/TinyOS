@@ -1,0 +1,5 @@
+init_timer call:[outb] noreturn:[outb]
+get_update_in_progress_flag call:[inb,outb,return] noreturn:[return]
+get_rtc_register call:[inb,outb] noreturn:[inb]
+update_clock_display global:[last_second,timer_ticks] call:[get_rtc_register,get_update_in_progress_flag]
+sleep global:[timer_ticks] call:[update_clock_display] noreturn:[update_clock_display]

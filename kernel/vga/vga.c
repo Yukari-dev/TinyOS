@@ -1,39 +1,32 @@
 #include "vga.h"
 #include "../util/util.h"
 
+unsigned char back_buffer[SIZE];
 
-unsigned short* video_mem = (unsigned short*)0xB8000;
-unsigned short width = 80;
-unsigned short height = 25;
-unsigned short cursor_y = 0;
-unsigned short cursor_x = 0;
-
-
-void disable_blinking() {
-    inb(0x3DA); 
-    outb(0x3C0, 0x30); 
-    
-    unsigned char reg = inb(0x3C1);
-    reg &= ~0x08;     
-
-    outb(0x3C0, reg);
+void clear(unsigned char color){
+    for(int i = 0; i < SIZE; i++) back_buffer[i] = color;
 }
 
-void update_cursor(){
-    unsigned short pos = cursor_y * width + cursor_x;
-
-    outb(0x3D4, 0x0F);
-    outb(0x3D5, (unsigned char)(pos & 0xFF));
-
-    outb(0x3D4, 0x0E);
-    outb(0x3D5, (unsigned char)((pos >> 8) & 0xFF));
+void put_pixel(int x, int y, unsigned char color){
+    back_buffer[y * WIDTH + x] = color;
 }
 
-void enable_cursor(unsigned char cursor_start, unsigned char cursor_end) {
-    outb(0x3D4, 0x0A);
-    outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
-
-    outb(0x3D4, 0x0B);
-    outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
+void draw_rect(int x, int y, int w, int h, unsigned char color){
+    for(int i = 0; i < h; i++){
+        for(int j = 0; j < w; j++){
+            back_buffer[(y + i) * WIDTH + (x + j)] = color;
+        }
+    }
 }
 
+void flip(){
+    unsigned char* vram = (unsigned char*)0xA0000;
+    for(int i = 0; i < SIZE; i++) vram[i] = back_buffer[i];
+}
+VGADriver Screen = {
+    .buffer = back_buffer,
+    .clear = clear,
+    .put_pixel = put_pixel,
+    .draw_rect = draw_rect,
+    .flip = flip
+};

@@ -1,2 +1,1 @@
-put_pixel
-main call:[put_pixel] noreturn:[put_pixel]
+main global:[Mouse,Screen] call:[clear,draw_rect,flip,inb,init,update] noreturn:[flip,inb]

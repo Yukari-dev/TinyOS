@@ -1,18 +1,18 @@
-#define WIDTH 320
-#define HEIGHT 200
+#include "drivers/mouse.h"
+#include "vga/vga.h"
 
-
-void put_pixel(int x, int y, unsigned char color){
-    unsigned char* screen = (unsigned char*)0xA0000;
-    screen[y * 320 + x] = color;
-}
 
 void main(){
-    for(int y = 0; y < HEIGHT; y++){
-        for(int x = 0; x < WIDTH; x++){
-            put_pixel(x, y, 0x03);
-        }
+    while (inb(0x64) & 1) { inb(0x60); }
+    Mouse.init();
+    while (1){
+        Mouse.update();
+        Screen.clear(56);
+
+        unsigned char cursor_color = Mouse.left_clicked ? 4 : 15;
+        Screen.draw_rect(Mouse.x, Mouse.y, 3, 3, cursor_color);
+
+        Screen.flip();
     }
-    while (1);
 }
 
