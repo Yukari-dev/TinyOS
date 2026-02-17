@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="14218287097956905794">
+        <error id="constVariablePointer" severity="style" msg="Variable &apos;src&apos; can be declared as pointer to const" verbose="Variable &apos;src&apos; can be declared as pointer to const" cwe="398" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.c" line="26" column="23" info="Variable &apos;src&apos; can be declared as pointer to const"/>
+            <symbol>src</symbol>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &apos;src&apos; can be declared as pointer to const" verbose="Variable &apos;src&apos; can be declared as pointer to const" cwe="398" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.c" line="37" column="23" info="Variable &apos;src&apos; can be declared as pointer to const"/>
+            <symbol>src</symbol>
+        </error>
+</analyzerinfo>

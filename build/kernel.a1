@@ -1,3 +1,5 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="4073134503155921067">
+<analyzerinfo hash="16330069023458801586">
+  <FileInfo check="ctu">
+<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.h:20:6" call-funcname="vga_draw_rect" call-argnr="1" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="16" col="22" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.h:20:6" call-funcname="vga_draw_rect" call-argnr="2" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="16" col="22" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
 </analyzerinfo>

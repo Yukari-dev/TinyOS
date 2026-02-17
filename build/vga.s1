@@ -1,0 +1,5 @@
+vga_init global:[Screen]
+vga_flip global:[Screen]
+vga_put_pixel global:[Screen]
+vga_draw_rect call:[vga_put_pixel] noreturn:[vga_put_pixel]
+vga_fill global:[Screen]

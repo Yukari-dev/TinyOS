@@ -21,8 +21,18 @@ start:
     jc disk_err 
 
     ; 2. SWITCH TO GRAPHICS MODE HERE (While still in Real Mode)
-    mov ax, 0x0013
+    mov ax, 0x4F01           ; VBE Get Mode Info
+    mov cx, 0x115            ; Mode 0x115 is 800x600x32-bit
+    mov di, 0x9000           ; Buffer at 0x9000
     int 0x10
+    cmp ax, 0x004F
+    jne vesa_err             ; Fail if VESA isn't supported
+
+    mov ax, 0x4F02           ; VBE Set Mode
+    mov bx, 0x4115           ; Mode 0x115 + Linear Frame Buffer bit (0x4000)
+    int 0x10
+    cmp ax, 0x004F
+    jne vesa_err
 
     ; 3. Transition to Protected Mode
     lgdt [gdt_descriptor]
@@ -31,6 +41,9 @@ start:
     mov cr0, eax
 
     jmp 0x08:protected_mode
+
+vesa_err:
+    hlt
 
 print_string:
     lodsb

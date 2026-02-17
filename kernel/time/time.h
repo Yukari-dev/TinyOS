@@ -1,20 +1,11 @@
 #ifndef TIME_H
 #define TIME_H
 
-extern unsigned char second;
-extern unsigned char minute;
-extern unsigned char hour;
+#include "../libs/stdint.h"
 
-void init_timer(unsigned int frequency);
+extern volatile uint32_t system_ticks;
 
-unsigned char get_update_in_progress_flag();
-
-unsigned char get_rtc_register(int reg);
-
-void update_clock_display();
-
-void timer_callback();
-
-void sleep(unsigned int ticks);
+void timer_init(uint32_t freq);
+void timer_handler();
 
 #endif

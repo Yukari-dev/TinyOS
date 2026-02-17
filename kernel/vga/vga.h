@@ -1,18 +1,23 @@
 #ifndef VGA_H
 #define VGA_H
 
-#define WIDTH 320
-#define HEIGHT 200
-#define SIZE WIDTH*HEIGHT
+#include "../libs/stdint.h"
 
-typedef struct{
-    unsigned char* buffer;
-    void (*clear)(unsigned char color);
-    void (*put_pixel)(int x, int y, unsigned char color);
-    void (*draw_rect)(int x, int y, int w, int h, unsigned char color);
-    void (*flip)();
-} VGADriver;
+typedef struct {
+    uint32_t* lfb;    
+    uint32_t* buffer; 
+    int width;
+    int height;
+    int pitch;
+    uint8_t bpp;
+} ScreenDevice;
 
-extern VGADriver Screen;
+extern ScreenDevice Screen;
+
+void vga_init();
+void vga_put_pixel(int x, int y, uint32_t color);
+void vga_fill(uint32_t color);
+void vga_draw_rect(int x, int y, int w, int h, uint32_t color);
+void vga_flip();
 
 #endif

@@ -74,7 +74,7 @@ void wm_update(){
                 wm_bring_to_front(i);
                 break;
             } else if(Mouse.x >= win->x && Mouse.x < win-> x + win->w &&
-                      Mouse.y >= win->y && Mouse.y <= win->y + win-h){
+                      Mouse.y >= win->y && Mouse.y <= win->y + win->h){
                 wm_bring_to_front(i);
             }
         }
