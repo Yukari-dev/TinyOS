@@ -1,19 +1,9 @@
-#ifndef HEAD_H
-#define HEAD_H
-#define HEAP_START 0x800000;
+#ifndef HEAP_H
+#define HEAP_H
 
-typedef struct Header{
-    unsigned int size;
-    unsigned char is_free;
-    struct Header* next;
-} Header;
+#include "../libs/stdint.h"
 
-extern Header* first_block;
-
-void init_heap();
-
-void* malloc(unsigned int size);
-
-void free(void* ptr);
+void heap_init();
+void* malloc(uint32_t size);
 
 #endif

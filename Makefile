@@ -60,17 +60,18 @@ $(KERNEL_ENTRY_OBJ): $(KERNEL_ENTRY_ASM) | $(BUILD_DIR)
 $(KERNEL_BIN): $(KERNEL_ENTRY_OBJ) $(C_OBJECTS) boot/linker.ld
 	$(LD) $(LDFLAGS) $(KERNEL_ENTRY_OBJ) $(C_OBJECTS) -o $@
 
-# Create disk image
 $(DISK_IMG): $(BOOT_BIN) $(KERNEL_BIN)
 	$(DD) if=/dev/zero of=$@ bs=512 count=2880
 	$(DD) if=$(BOOT_BIN) of=$@ bs=512 count=1 conv=notrunc
 	$(DD) if=$(KERNEL_BIN) of=$@ bs=512 seek=1 conv=notrunc
+	$(DD) if=data/my_image.bmp of=$@ bs=512 seek=100 conv=notrunc
 
 # Run in QEMU
+DATA_DIR = data
+
+# Update the run target
 run: $(DISK_IMG)
-	qemu-system-x86_64 -drive format=raw,file=myos.img,index=0,if=ide \
-					   -drive format=raw,file=fat:rw:data,index=1,if=ide \
-					   -m 128
+	$(QEMU) -drive format=raw,file=$(DISK_IMG),index=0,if=ide -m 128
 
 clean:
 	rm -rf $(BUILD_DIR) $(DISK_IMG)

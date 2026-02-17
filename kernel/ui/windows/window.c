@@ -119,10 +119,10 @@ void wm_render(){
         if(!win->is_active) continue;
         
         // Body
-        Screen.draw_rect(win->x, win->y, win->w, win->h, win->color);    
+        vga_draw_rect(win->x, win->y, win->w, win->h, win->color);    
 
         // TitleBar
-        Screen.draw_rect(win->x, win->y, win->w, 12, 8);
+        vga_draw_rect(win->x, win->y, win->w, 12, 8);
         Font.draw_string(win->x + 5, win->y + 2, win->title, 15);
 
         if(win->app != NULL && win->app->on_render != NULL){

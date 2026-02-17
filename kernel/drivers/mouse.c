@@ -32,35 +32,41 @@ void init_mouse() {
 }
 
 void update_mouse() {
-    unsigned char status = inb(0x64);
-    if ((status & 0x01) && (status & 0x20)) {
-        unsigned char data = inb(0x60);
-        if (Mouse.cycle == 0 && !(data & 0x08)) return;
+    // Keep reading as long as there is data in the buffer (status bit 0 is set)
+    while (inb(0x64) & 0x01) {
+        unsigned char status = inb(0x64);
+        
+        // Ensure the data is actually from the mouse (bit 5)
+        if (status & 0x20) {
+            unsigned char data = inb(0x60);
+            if (Mouse.cycle == 0 && !(data & 0x08)) continue;
 
-        Mouse.packet[Mouse.cycle++] = data;
+            Mouse.packet[Mouse.cycle++] = data;
 
-        if (Mouse.cycle == 3) {
-            Mouse.cycle = 0;
-            unsigned char button_state = (Mouse.packet[0] & 0x01);
-            Mouse.left_clicked = (button_state && !Mouse.left_down);
-            Mouse.left_down = button_state;
-            Mouse.x += (signed char)Mouse.packet[1];
-            Mouse.y -= (signed char)Mouse.packet[2];
+            if (Mouse.cycle == 3) {
+                Mouse.cycle = 0;
+                unsigned char button_state = (Mouse.packet[0] & 0x01);
+                Mouse.left_clicked = (button_state && !Mouse.left_down);
+                Mouse.left_down = button_state;
+                
+                Mouse.x += (signed char)Mouse.packet[1];
+                Mouse.y -= (signed char)Mouse.packet[2];
 
-            if (Mouse.x < 0) Mouse.x = 0;
-            if (Mouse.y < 0) Mouse.y = 0;
-            if (Mouse.x >= MOUSE_WIDTH) Mouse.x = MOUSE_WIDTH - 1;
-            if (Mouse.y >= MOUSE_HEIGHT) Mouse.y = MOUSE_HEIGHT - 1;
+                if (Mouse.x < 0) Mouse.x = 0;
+                if (Mouse.y < 0) Mouse.y = 0;
+                if (Mouse.x >= 800) Mouse.x = 799;
+                if (Mouse.y >= 600) Mouse.y = 599;
+            }
+        } else {
+            inb(0x60);
         }
-    } else if (status & 0x01) {
-        inb(0x60); // Drain keyboard
     }
 }
 
 // Instantiate the "Object"
 MouseDevice Mouse = {
-    .x = 160,
-    .y = 100,
+    .x = 400,
+    .y = 300,
     .left_clicked = 0,
     .left_down = 0,
     .cycle = 0,

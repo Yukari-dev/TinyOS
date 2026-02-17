@@ -31,7 +31,6 @@ void vga_flip() {
         }
     } 
     else if (Screen.bpp == 24) {
-        // Handle 24-bit (3 bytes per pixel)
         for(int y = 0; y < Screen.height; y++){
             uint8_t* dest = (uint8_t*)Screen.lfb + (y * Screen.pitch);
             uint32_t* src = Screen.buffer + (y * Screen.width);
@@ -55,6 +54,30 @@ void vga_draw_rect(int x, int y, int w, int h, uint32_t color) {
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
             vga_put_pixel(x + j, y + i, color);
+        }
+    }
+}
+
+void vga_draw_gradient(uint32_t color1, uint32_t color2) {
+    uint8_t r1 = (color1 >> 16) & 0xFF;
+    uint8_t g1 = (color1 >> 8) & 0xFF;
+    uint8_t b1 = color1 & 0xFF;
+
+    uint8_t r2 = (color2 >> 16) & 0xFF;
+    uint8_t g2 = (color2 >> 8) & 0xFF;
+    uint8_t b2 = color2 & 0xFF;
+
+    for (int y = 0; y < Screen.height; y++) {
+        int p = (y * 255) / Screen.height;
+
+        uint8_t r = r1 + (p * (r2 - r1)) / 255;
+        uint8_t g = g1 + (p * (g2 - g1)) / 255;
+        uint8_t b = b1 + (p * (b2 - b1)) / 255;
+
+        uint32_t final_color = (r << 16) | (g << 8) | b;
+
+        for (int x = 0; x < Screen.width; x++) {
+            Screen.buffer[y * Screen.width + x] = final_color;
         }
     }
 }

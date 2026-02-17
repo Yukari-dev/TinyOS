@@ -18,6 +18,7 @@ void vga_init();
 void vga_put_pixel(int x, int y, uint32_t color);
 void vga_fill(uint32_t color);
 void vga_draw_rect(int x, int y, int w, int h, uint32_t color);
+void vga_draw_gradient(uint32_t color1, uint32_t color2);
 void vga_flip();
 
 #endif

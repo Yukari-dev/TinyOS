@@ -1,0 +1,2 @@
+load_bmp call:[vga_put_pixel] noreturn:[vga_put_pixel]
+load_bmp_scaled call:[vga_put_pixel] noreturn:[vga_put_pixel]

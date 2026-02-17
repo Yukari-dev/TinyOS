@@ -1,4 +1,0 @@
-mouse_wait call:[inb]
-mouse_write call:[mouse_wait,outb] noreturn:[outb]
-init_mouse call:[inb,mouse_wait,mouse_write,outb] noreturn:[inb]
-update_mouse global:[Mouse] call:[inb] noreturn:[inb]

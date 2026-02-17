@@ -1,2 +1,0 @@
-timer_init call:[outb] noreturn:[outb]
-timer_handler global:[system_ticks]

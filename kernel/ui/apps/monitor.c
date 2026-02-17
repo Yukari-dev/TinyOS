@@ -16,7 +16,7 @@ void monitor_draw(int x, int y, int w, int h) {
     Font.draw_string(px, py + 15, "Mouse Y:", 15);
     Font.draw_string(px + 65, py + 15, itoa(Mouse.y, buf, 10), 10);
 
-    Screen.draw_rect(x + 2, py + 30, w - 4, 1, 8); // Dark grey line
+    vga_draw_rect(x + 2, py + 30, w - 4, 1, 8); // Dark grey line
 
     Font.draw_string(px, py + 40, "Status: Running", 14); // Yellow color (14)
 }

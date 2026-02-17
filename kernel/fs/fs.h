@@ -1,29 +1,20 @@
 #ifndef FS_H
 #define FS_H
 
-#define MAX_FILES 10
-#define MAX_FILE_SIZE 479
-#define SECTOR_START 100
+#include "../libs/stdint.h"
 
-typedef struct{
-    char name[32];
-    char content[MAX_FILE_SIZE];
-    unsigned int size;
-    unsigned int active;
-}__attribute__((packed)) RAMFile;
+typedef struct {
+    uint8_t name[8];
+    uint8_t ext[3];
+    uint8_t attr;
+    uint8_t reserved[10];
+    uint16_t time;
+    uint16_t date;
+    uint16_t cluster;
+    uint32_t size;
+} __attribute__((packed)) DirectoryEntry;
 
-extern RAMFile ramdisk[MAX_FILES];
-
-void init_ramdisk();
-
-void create_file(char* name);
-
-void write_file(char* file_name, char* content);
-
-void read_file(char* file_name);
-
-void list_files();
-
-void format();
+void fs_init();
+uint8_t* fs_load_file(char* name, uint32_t* out_size);
 
 #endif

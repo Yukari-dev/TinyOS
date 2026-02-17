@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="15933507360427132451">
+        <error id="constVariablePointer" severity="style" msg="Variable &apos;pixels&apos; can be declared as pointer to const" verbose="Variable &apos;pixels&apos; can be declared as pointer to const" cwe="398" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c" line="8" column="14" info="Variable &apos;pixels&apos; can be declared as pointer to const"/>
+            <symbol>pixels</symbol>
+        </error>
+        <error id="constVariablePointer" severity="style" msg="Variable &apos;pixels&apos; can be declared as pointer to const" verbose="Variable &apos;pixels&apos; can be declared as pointer to const" cwe="398" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c" line="28" column="14" info="Variable &apos;pixels&apos; can be declared as pointer to const"/>
+            <symbol>pixels</symbol>
+        </error>
+  <FileInfo check="Bounds checking">
+    <array-index>
+    <unsafe-usage my-id="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.h:7:6" my-argnr="3" my-argname="bmp_data" file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c" line="4" col="41" value="10"/>
+    <unsafe-usage my-id="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.h:8:6" my-argnr="3" my-argname="bmp_data" file="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.c" line="25" col="41" value="10"/>
+    </array-index>
+  </FileInfo>
+</analyzerinfo>

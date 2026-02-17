@@ -1,1 +1,1 @@
-monitor_draw global:[Font,Mouse,Screen,buf] call:[draw_rect,draw_string,itoa] noreturn:[draw_string]
+monitor_draw global:[Font,Mouse,buf] call:[draw_string,itoa,vga_draw_rect] noreturn:[draw_string]

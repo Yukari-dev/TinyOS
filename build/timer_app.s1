@@ -1,1 +1,0 @@
-timer_app_render global:[Font,system_ticks,t_buf] call:[draw_string,itoa] noreturn:[draw_string]

@@ -3,8 +3,8 @@
 
 #include "../util/util.h"
 
-#define MOUSE_WIDTH 320
-#define MOUSE_HEIGHT 200
+#define MOUSE_WIDTH 800
+#define MOUSE_HEIGHT 600
 
 typedef struct {
     int x;

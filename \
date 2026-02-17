@@ -19,7 +19,7 @@ void main() {
     
     while(1) {
         vga_fill(0x222222);
-        load_bmp_scaled(100, 100, image_buffer, 400, 400);
+        draw_bmp(100, 100, image_buffer);
         
         if(image_buffer){
             Font.draw_string(0, 0, "Image is loaded.", 0xFFFFFF);

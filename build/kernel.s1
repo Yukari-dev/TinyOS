@@ -1,3 +1,3 @@
 point_in_rect call:[return] noreturn:[return]
 rect_overlapping call:[return] noreturn:[return]
-main call:[vga_draw_rect,vga_fill,vga_flip,vga_init] noreturn:[vga_flip]
+main global:[Font] call:[disk_read,draw_string,heap_init,load_bmp_scaled,malloc,vga_fill,vga_flip,vga_init] noreturn:[draw_string,vga_flip]

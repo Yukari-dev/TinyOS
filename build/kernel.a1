@@ -1,5 +1,19 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="16330069023458801586">
+<analyzerinfo hash="5291882391403125999">
+        <error id="unusedVariable" severity="style" msg="Unused variable: buf" verbose="Unused variable: buf" cwe="563" file0="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c">
+            <location file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="15" column="13"/>
+            <symbol>buf</symbol>
+        </error>
   <FileInfo check="ctu">
-<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.h:20:6" call-funcname="vga_draw_rect" call-argnr="1" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="16" col="22" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/vga/vga.h:20:6" call-funcname="vga_draw_rect" call-argnr="2" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="16" col="22" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+<function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/disk.h:6:6" call-funcname="disk_read" call-argnr="1" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="18" col="14" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/disk.h:6:6" call-funcname="disk_read" call-argnr="4" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="18" col="14" call-argexpr="image_buffer" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="1">
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="35" info="Assuming allocation function fails"/>
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="35" info="Assignment &apos;image_buffer=malloc(4096)&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/drivers/disk.h:6:6" call-funcname="disk_read" call-argnr="4" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="18" col="14" call-argexpr="image_buffer" call-argvaluetype="7" call-argvalue="4096" call-argvalue-ufr="0">
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="27" info="Assign image_buffer, buffer with size 4096"/>
+</function-call><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.h:8:6" call-funcname="load_bmp_scaled" call-argnr="3" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="22" col="24" call-argexpr="image_buffer" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="1">
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="35" info="Assuming allocation function fails"/>
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="35" info="Assignment &apos;image_buffer=malloc(4096)&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/yukari/coding_projects/OS/TinyOS/kernel/ui/image.h:8:6" call-funcname="load_bmp_scaled" call-argnr="3" file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="22" col="24" call-argexpr="image_buffer" call-argvaluetype="7" call-argvalue="4096" call-argvalue-ufr="0">
+  <path file="/home/yukari/coding_projects/OS/TinyOS/kernel/kernel.c" line="17" col="27" info="Assign image_buffer, buffer with size 4096"/>
+</function-call>  </FileInfo>
 </analyzerinfo>
